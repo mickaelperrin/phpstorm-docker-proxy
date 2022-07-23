@@ -35,17 +35,10 @@ class ConfigLoader
 
         $data['image'] !== null or $data['container'] !== null
             or U::fail('Image or container name is not specified');
+        $data['baseDir'] = $baseDir;
+        $data['paths'] = $this->resolvePaths($baseDir, $data['paths']);
 
-        return new Config(
-            $baseDir,
-            $data['image'] ?: '',
-            $data['container'] ?: '',
-            $this->resolvePaths($baseDir, $data['paths']),
-            $data['phpBin'],
-            $data['dockerBin'],
-            $data['directorySeparator'],
-            $data['debug']
-        );
+        return new Config($data);
     }
 
     private function locate(string $dir): string
@@ -71,7 +64,12 @@ class ConfigLoader
         $resolvedPaths = [];
 
         foreach ($paths as $hostPath => $containerPath) {
-            $realHostPath = \realpath($baseDir . DIRECTORY_SEPARATOR . $hostPath)
+            if (str_starts_with($hostPath, DIRECTORY_SEPARATOR)) {
+                $absolutePath = $hostPath;
+            } else {
+                $absolutePath = $baseDir . DIRECTORY_SEPARATOR . $hostPath;
+            }
+            $realHostPath = \realpath($absolutePath)
                 or U::fail('Cannot resolve host path "%s"', $baseDir . DIRECTORY_SEPARATOR . $hostPath);
 
             $resolvedPaths[$realHostPath] = $containerPath;

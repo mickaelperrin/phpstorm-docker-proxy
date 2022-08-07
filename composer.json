@@ -7,7 +7,8 @@
         "php": ">=8.1",
         "ext-json": "*",
         "ext-ctype": "*",
-        "kuria/debug": "^4.0"
+        "kuria/debug": "^4.0",
+        "composer-runtime-api": "^2.2.2"
     },
     "autoload": {
         "psr-4": {
@@ -15,6 +16,13 @@
         }
     },
     "bin": [
-        "bin/phpstorm-docker-proxy"
+        "bin/phpstorm-docker-proxy-codecept",
+        "bin/phpstorm-docker-proxy-composer",
+        "bin/phpstorm-docker-proxy-php",
+        "bin/phpstorm-docker-proxy-php-cs-fixer",
+        "bin/phpstorm-docker-proxy-phpcbf",
+        "bin/phpstorm-docker-proxy-phpcs",
+        "bin/phpstorm-docker-proxy-phpmd",
+        "bin/phpstorm-docker-proxy-phpunit"
     ]
 }

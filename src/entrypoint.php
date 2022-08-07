@@ -3,7 +3,7 @@
 
 namespace Shira\PhpStormDockerProxy;
 
-require  __DIR__ . '/../vendor/autoload.php';
+require $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 $backtrace = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 1);
 
